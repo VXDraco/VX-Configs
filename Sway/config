@@ -1,76 +1,77 @@
-# Default config for sway
 #
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
+###: ==========================
+###: Vertex Draco's Sway Config
+###:   ~/.config/sway/config
+###: ==========================
 
-# Keyboard
-input * xkb_layout "gb"
+###: Variables {{{
 
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-# Your preferred terminal emulator
-#set $term urxvt
-set $term kitty
+	##: The Mod Key. Mod1 = Alt, Mod4 = Super
+	# set $mod Mod1
+	set $mod Mod4
+	
+	##: Vim direction keys
+	set $left h
+	set $down j
+	set $up k
+	set $right l
+	
+	##: Terminal emulator
+	set $term kitty
+	
+	##: Application launcher
+	#: It's recommended that you pass the final command to sway
+	# set $menu dmenu_path | dmenu | xargs swaymsg exec --
+	set $menu rofi -modi drun -show drun | xargs swaymsg exec --
 
-# Your preferred application launcher
-# Note: it's recommended that you pass the final command to sway
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
-#set $menu j4-dmenu-desktop --dmenu='bemenu -i --nb "#3f3f3f" --nf "#dcdccc" --fn "pango:DejaVu Sans Mono 12"' --term='kitty'
-## I tried to make an FZF laucher with a terminal like cool-retro-term but I couldnt get it to work
-set $menu rofi -modi drun -show drun
+	###: }}}
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg /home/vx/Pictures/Monika-Realistic-1750x993.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+###: Input {{{
 
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' \
-#               resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+	##: TouchPad 
+	#: You can get the names of your inputs by running: swaymsg -t get_inputs
+	#: Read `man 5 sway-input` for more information about this section.
+	# input "2:14:SynPS/2_Synaptics_TouchPad" {
+	#	dwt enabled
+	#	tap enabled
+	#	natural_scroll enabled
+	#	middle_emulation enabled
+	# }
 
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
+	##: Keyboard Layout
+	#: Add media keys here, or under keybindings!?
+	input * xkb_layout "gb"
 
-### Key bindings
-#
-# Basics:
-#
+	###: }}}
+
+###: Output {{{
+
+	##: Wallpaper
+	#: Default wallpaper available at /usr/share/backgrounds/sway/
+	# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+	output * bg /home/vx/Pictures/Monika-Realistic-1750x993.png fill
+
+	##: Display
+	#: You can get the names of your outputs by running: swaymsg -t get_outputs
+	# output HDMI-A-1 resolution 1920x1080 position 1920,0
+
+	##: Idle
+	#: This example will lock your screen after 300 seconds of inactivity, and turn off your
+	#: displays after another 300 seconds, then it will turn your screens back on when resumed.
+	#: It will also lock your screen before your computer goes to sleep.
+	# exec swayidle -w \
+	#	timeout 300 'swaylock -f -c 000000' \
+	#	timeout 600 'swaymsg "output * dpms off"' \
+	#		resume 'swaymsg "output * dpms on"' \
+	#	before-sleep 'swaylock -f -c 000000'
+
+	###: }}}
+
+
+###: Key bindings 
+
+##: Basics:
+
     # start a terminal
     bindsym $mod+Return exec $term
 
@@ -213,7 +214,7 @@ bindsym $mod+r mode "resize"
 
 #
 # Status Bar:
-#
+#: I need to add the 2 style configs for waybar
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     #position top
@@ -234,3 +235,6 @@ include /etc/sway/config.d/*
 
 # Start PIA VPN
 exec /opt/piavpn/bin/pia-client
+
+gaps inner 5 
+
