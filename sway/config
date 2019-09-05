@@ -1,4 +1,4 @@
-#
+# vim:foldmethod=marker
 ###: ==========================
 ###: Vertex Draco's Sway Config
 ###:   ~/.config/sway/config
@@ -6,8 +6,8 @@
 
 ###: Variables {{{
 
-	##: The Mod Key. Mod1 = Alt, Mod4 = Super
-	# set $mod Mod1
+	##: The Mod key. Mod1 = Alt, Mod4 = Super
+	#set $mod Mod1
 	set $mod Mod4
 	
 	##: Vim direction keys
@@ -21,7 +21,7 @@
 	
 	##: Application launcher
 	#: It's recommended that you pass the final command to sway
-	# set $menu dmenu_path | dmenu | xargs swaymsg exec --
+	#set $menu dmenu_path | dmenu | xargs swaymsg exec --
 	set $menu rofi -modi drun -show drun | xargs swaymsg exec --
 
 	###: }}}
@@ -39,7 +39,6 @@
 	# }
 
 	##: Keyboard Layout
-	#: Add media keys here, or under keybindings!?
 	input * xkb_layout "gb"
 
 	###: }}}
@@ -48,12 +47,15 @@
 
 	##: Wallpaper
 	#: Default wallpaper available at /usr/share/backgrounds/sway/
-	# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+	#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 	output * bg /home/vx/Pictures/Monika-Realistic-1750x993.png fill
 
 	##: Display
 	#: You can get the names of your outputs by running: swaymsg -t get_outputs
-	# output HDMI-A-1 resolution 1920x1080 position 1920,0
+	output eDP-1 resolution 1366x768 position 0,0
+	output HDMI-A-1 resolution 1920x1080 position 1366,0
+	focus output eDP-1
+
 
 	##: Idle
 	#: This example will lock your screen after 300 seconds of inactivity, and turn off your
@@ -67,20 +69,17 @@
 
 	###: }}}
 
+###: Basic Key Bindings {{{ 
 
-###: Key bindings 
+	##: Start a terminal
+	bindsym $mod+Return exec $term
 
-##: Basics:
+	##: Kill focused window
+	bindsym $mod+Shift+q kill
+	#bindsym $mod+F4 kill
 
-    # start a terminal
-    bindsym $mod+Return exec $term
-
-    # kill focused window
-    bindsym $mod+Shift+q kill
-    #bindsym $mod+F4 kill
-
-    # start your launcher
-    bindsym $mod+d exec $menu
+	##: Start your launcher
+	bindsym $mod+d exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -95,11 +94,13 @@
     # exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
-    # No Titlebar
+    ##: No Titlebar
     #for_window [class="cool-retro-term"] border pixel 1
     #for_window [class="terminology"] border pixel 1 ###doesnt work for some reason
     default_border pixel 1
-#
+
+	###: }}}
+
 # Moving around:
 #
     # Move your focus around
@@ -187,6 +188,28 @@
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+#
+# Media Keys (xev is used to get these names)
+#
+	bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle #change to pamixer
+	bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #change to pamixer?
+	bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #change to pamixer?
+	bindsym XF86AudioMicMute exec pamixer --source 1 -t
+#	bindsym XF86TouchpadOff #write a touchpad off/on script
+#	bindsym XF86TouchpadOn
+#	bindsym XF86RFKill #kill all wifi/bluetooth button?
+#	bindsym XF86WebCam #kill all webcam/mic buttons (or just webcam)?
+#	bindsym Super_L #the lock
+#	bindsym Super_L #also the next one???
+	bindsym XF86MonBrightnessDown exec light -U 5
+	bindsym XF86MonBrightnessUp exec light -A 5
+#	bindsym Print #make 2 print screen buttons?
+	bindsym XF86AudioPlay exec playerctl play-pause
+	bindsym XF86AudioStop exec playerctl stop
+	bindsym XF86AudioPrev exec playerctl previous
+	bindsym XF86AudioNext exec playerctl next
+
 #
 # Resizing containers:
 #

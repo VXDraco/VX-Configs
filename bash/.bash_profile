@@ -19,4 +19,4 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 #export ELM_ACCEL=gl #none for software rendering
 
 # BeMenu (Dmenu replacement) Wayland support
-export BEMENU_BACKEND
+#export BEMENU_BACKEND

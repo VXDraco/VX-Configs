@@ -1,0 +1,30 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=9000
+SAVEHIST=9000
+setopt appendhistory autocd extendedglob nomatch notify
+unsetopt beep
+bindkey -v
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/vx/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+###: VX settings
+
+##: Alias commands
+alias monika='yay'
+alias icat='kitty +kitten icat'
+alias ls='ls --color=auto'
+
+##: Fortune | Cowsay (-S fortune-mod cowsay)
+fortune -a -c | fmt -80 -s | $(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
+
+##: Fish-like syntax highlighting (-S zsh-syntax-highlighting)
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+##: Oh My Zsh Themes (not working atm?)
+ZSH_THEME="flazz"
